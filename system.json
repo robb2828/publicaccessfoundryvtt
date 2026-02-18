@@ -5,15 +5,17 @@
   "type": "system",
   "version": "0.1.0",
   "description": "A Foundry VTT implementation of the Public Access TTRPG.",
-  "url": "https://foundryvtt.com/",
+  "url": "https://github.com/robb2828/publicaccessfoundryvtt",
+  "manifest": "https://github.com/robb2828/publicaccessfoundryvtt/releases/latest/download/system.json",
+  "download": "https://github.com/robb2828/publicaccessfoundryvtt/releases/download/v0.1.0/publicaccessfoundryvtt.zip",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
   },
   "authors": [
     {
-      "name": "Public Access System Auto‑Generated",
-      "url": "https://foundryvtt.com/"
+      "name": "Public Access System",
+      "url": "https://github.com/robb2828/publicaccessfoundryvtt"
     }
   ],
   "esmodules": ["module/publicaccess.js"],
