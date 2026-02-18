@@ -65,10 +65,11 @@ Hooks.once('init', async function() {
 
 // #region agent log
 Hooks.on('renderApplication', (app, _element, _data) => {
-  if (!(app instanceof ActorSheet)) return;
+  const doc = app.document ?? app.object;
+  const isActor = doc?.documentName === 'Actor' || app.actor != null;
+  if (!isActor) return;
   const actor = app.actor ?? app.object;
-  if (!actor) return;
-  fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:renderApplication',message:'Actor sheet rendered',data:{actorType:actor.type,actorId:actor.id,sheetClass:app.constructor?.name},timestamp:Date.now(),hypothesisId:'B'})}).catch(()=>{});
+  fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:renderApplication',message:'Actor sheet rendered',data:{actorType:actor?.type,actorId:actor?.id,sheetClass:app.constructor?.name,isActorSheet:app instanceof ActorSheet},timestamp:Date.now(),hypothesisId:'E'})}).catch(()=>{});
 });
 // #endregion
 

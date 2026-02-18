@@ -18,6 +18,24 @@ export class LatchkeySheet extends ActorSheet {
   }
 
   /** @override */
+  render(force, options = {}) {
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'latchkey-sheet.js:render-entry',message:'render() called',data:{force,actorId:this.actor?.id},timestamp:Date.now(),hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+    let out;
+    try {
+      out = super.render(force, options);
+    } catch (err) {
+      fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'latchkey-sheet.js:render-throw',message:'render() threw',data:{error:String(err)},timestamp:Date.now(),hypothesisId:'E'})}).catch(()=>{});
+      throw err;
+    }
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'latchkey-sheet.js:render-exit',message:'render() returned',data:{hasElement:!!this.element?.length},timestamp:Date.now(),hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+    return out;
+  }
+
+  /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['publicaccess', 'sheet', 'actor'],
