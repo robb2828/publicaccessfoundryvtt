@@ -12,26 +12,28 @@ https://raw.githubusercontent.com/robb2828/publicaccessfoundryvtt/main/system.js
 
 Then choose **Public Access** when creating a world.
 
-**Note:** If installation fails at the download step, a release may not exist yet. See “Releasing” below.
+*(If you see “Failure to download package from URL”, the maintainer has not created a release yet—see below.)*
 
-## Releasing (for maintainers)
+---
 
-So that “Install System” works fully (manifest + download), create a **GitHub Release** and attach:
+## Creating your first release (maintainers)
 
-1. **`system.json`**  
-   Use the `system.json` from this repo (it must include the correct `version` and `download` URL for this release).
+Install fails at the download step until a GitHub Release exists with the system zip. Do this once:
 
-2. **`publicaccessfoundryvtt.zip`**  
-   A zip of the **contents** of the system (so `system.json` is at the **root** of the zip, not inside a folder).
+1. **Build the zip** (from the repo root):
+   ```bash
+   chmod +x build-release.sh
+   ./build-release.sh 0.1.0
+   ```
+   This creates `publicaccessfoundryvtt.zip` with the correct structure (system.json at root).
 
-Then set in `system.json` (and in the `system.json` you attach to the release):
+2. **Create a GitHub Release:**
+   - Repo → **Releases** → **Create a new release**
+   - Tag: `v0.1.0` (must match version in system.json)
+   - Title: e.g. `v0.1.0`
+   - Attach **`publicaccessfoundryvtt.zip`** (drag and drop)
+   - Publish the release
 
-- **manifest:**  
-  `https://raw.githubusercontent.com/robb2828/publicaccessfoundryvtt/main/system.json`  
-  (or, for release-based manifest):  
-  `https://github.com/robb2828/publicaccessfoundryvtt/releases/latest/download/system.json`
-- **download:**  
-  `https://github.com/robb2828/publicaccessfoundryvtt/releases/download/vX.Y.Z/publicaccessfoundryvtt.zip`  
-  (replace `vX.Y.Z` with the release tag, e.g. `v0.1.0`).
+3. **Install again in Foundry** using the manifest URL above. The download step will now succeed.
 
-After the first release exists, you can switch the manifest to the releases URL so update checks use the release manifest.
+The `system.json` in this repo already points the download URL at `releases/latest/download/publicaccessfoundryvtt.zip`, so any new release that includes that asset name will work for “Install System” and updates.
