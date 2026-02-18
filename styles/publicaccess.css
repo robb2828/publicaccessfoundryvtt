@@ -1,0 +1,156 @@
+/*
+ * Styles for the Public Access Foundry VTT system.  The goal is to evoke
+ * the feel of the printed character sheet while remaining legible and
+ * functional within the digital interface.  These rules are intentionally
+ * modest so that users can customise further via their own CSS.
+ */
+
+.pa-latchkey-sheet {
+  font-family: var(--font-primary);
+  color: #222;
+  padding: 10px;
+}
+
+.pa-latchkey-sheet header h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.section {
+  margin-bottom: 1em;
+  border: 1px solid var(--color-border-light-tertiary);
+  padding: 0.5em;
+  border-radius: 4px;
+  background: var(--color-bg-light-primary);
+}
+
+.section h2 {
+  margin: 0 0 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--color-text-light-heading);
+}
+
+.pa-grid-identity, .pa-grid-abilities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5em;
+}
+
+.pa-field label {
+  display: block;
+  font-size: 0.8em;
+  margin-bottom: 0.2em;
+  color: var(--color-text-light-secondary);
+}
+
+.pa-field input[type="text"],
+.pa-field input[type="number"],
+.pa-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pa-condition-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pa-condition-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25em;
+}
+.condition-delete {
+  margin-left: 0.5em;
+  color: var(--color-text-hyperlink);
+  cursor: pointer;
+}
+
+.pa-xp-track input {
+  margin-right: 0.25em;
+}
+
+.pa-key-track {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25em;
+}
+.pa-key-label {
+  margin-right: 0.5em;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.pa-corner-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.5em;
+}
+.pa-corner-table th,
+.pa-corner-table td {
+  border: 1px solid var(--color-border-light-tertiary);
+  padding: 2px 4px;
+  text-align: left;
+}
+.pa-corner-table input[type="checkbox"] {
+  display: block;
+  margin: 0 auto;
+}
+
+.pa-move-buttons button {
+  margin: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 0.9em;
+}
+
+/* Chat card styling */
+.pa-chat-card {
+  border: 1px solid var(--color-border-light-tertiary);
+  background: var(--color-bg-light-primary);
+  padding: 0.5em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.pa-chat-card header h3 {
+  margin: 0 0 0.25em;
+  font-size: 1em;
+  font-weight: bold;
+}
+.pa-chat-card .pa-chat-body p {
+  margin: 0.25em 0;
+}
+.pa-chat-card .pa-chat-actions {
+  margin-top: 0.5em;
+}
+.pa-chat-card .pa-turn-key {
+  font-size: 0.8em;
+  padding: 0.2em 0.5em;
+}
+.pa-chat-key-turn {
+  border-left: 4px solid var(--color-border-dark-primary);
+  margin-top: 0.5em;
+  padding-left: 0.5em;
+  background: var(--color-bg-light-secondary);
+}
+
+/* Phase tracker */
+.pa-phase-tracker {
+  padding: 0.5em;
+  font-size: 0.9em;
+}
+.pa-phase-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5em 0;
+}
+.pa-phase-item {
+  padding: 0.1em 0;
+}
+.pa-phase-item.current {
+  font-weight: bold;
+  color: var(--color-text-hyperlink);
+}

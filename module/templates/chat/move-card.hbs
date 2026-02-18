@@ -1,0 +1,13 @@
+<div class="pa-chat-card" data-actor-id="{{actor.id}}" data-move-key="{{moveKey}}" data-ability="{{ability}}" data-total="{{rollData.total}}" data-tier="{{tier}}">
+  <header class="pa-chat-header">
+    <h3>{{move.label}}</h3>
+  </header>
+  <div class="pa-chat-body">
+    <p><strong>Ability:</strong> {{pa.ABILITIES.[ability]}}</p>
+    <p><strong>Formula:</strong> {{rollData.formula}} = {{rollData.total}}</p>
+    <p><strong>Outcome:</strong> {{resultText}} <em>({{tier}})</em></p>
+  </div>
+  <div class="pa-chat-actions">
+    <button type="button" class="pa-turn-key" data-move-key="{{moveKey}}">Turn a Key</button>
+  </div>
+</div>

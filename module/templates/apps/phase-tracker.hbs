@@ -1,0 +1,9 @@
+<div class="pa-phase-tracker">
+  <p><strong>Current Phase:</strong> {{currentPhase}}</p>
+  <ul class="pa-phase-list">
+    {{#each phaseList as |p|}}
+    <li class="pa-phase-item {{#if p.current}}current{{/if}}">{{p.name}}</li>
+    {{/each}}
+  </ul>
+  <button type="button" class="phase-next">Next Phase</button>
+</div>

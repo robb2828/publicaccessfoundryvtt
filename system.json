@@ -1,0 +1,66 @@
+{
+  "name": "publicaccess",
+  "title": "Public Access",
+  "id": "publicaccess",
+  "type": "system",
+  "version": "0.1.0",
+  "description": "A Foundry VTT implementation of the Public Access TTRPG.",
+  "url": "https://foundryvtt.com/",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "Public Access System Auto‑Generated",
+      "url": "https://foundryvtt.com/"
+    }
+  ],
+  "esmodules": ["module/publicaccess.js"],
+  "styles": ["styles/publicaccess.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "moves",
+      "label": "Public Access Moves",
+      "path": "packs/moves.db",
+      "type": "Item",
+      "private": false,
+      "system": "publicaccess"
+    },
+    {
+      "name": "dawn-questions",
+      "label": "Public Access Dawn Questions",
+      "path": "packs/dawn-questions.db",
+      "type": "Item",
+      "private": false,
+      "system": "publicaccess"
+    },
+    {
+      "name": "advancements",
+      "label": "Public Access Advancements",
+      "path": "packs/advancements.db",
+      "type": "Item",
+      "private": false,
+      "system": "publicaccess"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "latchkey": {}
+    },
+    "Item": {
+      "corner-item": {},
+      "move": {},
+      "advancement": {},
+      "dawn-question": {}
+    }
+  }
+}

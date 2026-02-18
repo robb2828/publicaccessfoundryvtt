@@ -1,0 +1,114 @@
+<form class="pa-latchkey-sheet" autocomplete="off">
+  <header class="pa-header">
+    <h1>PUBLIC ACCESS</h1>
+  </header>
+  <section class="pa-identity section">
+    <h2>Identity</h2>
+    <div class="pa-grid-identity">
+      <div class="pa-field">
+        <label>First Name</label>
+        <input type="text" name="system.identity.firstName" value="{{system.identity.firstName}}"/>
+      </div>
+      <div class="pa-field">
+        <label>Surname</label>
+        <input type="text" name="system.identity.surname" value="{{system.identity.surname}}"/>
+      </div>
+      <div class="pa-field">
+        <label>Style</label>
+        <input type="text" name="system.identity.style" value="{{system.identity.style}}"/>
+      </div>
+      <div class="pa-field takes-you-back">
+        <label>Takes You Back</label>
+        <input type="text" name="system.identity.takesYouBack.0" value="{{system.identity.takesYouBack.0}}" placeholder="Memory #1"/>
+        <input type="text" name="system.identity.takesYouBack.1" value="{{system.identity.takesYouBack.1}}" placeholder="Memory #2"/>
+        <input type="text" name="system.identity.takesYouBack.2" value="{{system.identity.takesYouBack.2}}" placeholder="Memory #3"/>
+      </div>
+      <div class="pa-field move-text">
+        <label>Latchkey Move</label>
+        <textarea name="system.identity.latchkeyMoveText" rows="3">{{system.identity.latchkeyMoveText}}</textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="pa-abilities section">
+    <h2>Abilities</h2>
+    <div class="pa-grid-abilities">
+      {{#each config.ABILITIES as |label key|}}
+      <div class="pa-ability" data-ability="{{key}}">
+        <label>{{label}}</label>
+        <input type="number" name="system.abilities.{{key}}" value="{{lookup system.abilities key}}" min="-3" max="3"/>
+      </div>
+      {{/each}}
+    </div>
+  </section>
+
+  <section class="pa-conditions section">
+    <h2>Conditions</h2>
+    <ul class="pa-condition-list">
+      {{#each system.conditions as |cond i|}}
+      <li>
+        <input type="text" name="system.conditions.{{i}}" value="{{cond}}"/>
+        <a class="condition-delete" data-index="{{i}}">✖</a>
+      </li>
+      {{/each}}
+    </ul>
+    <button type="button" class="condition-add">Add Condition</button>
+    <p class="pa-condition-note">You may only have up to three conditions.  Adding a fourth forces you to turn a key.</p>
+  </section>
+
+  <section class="pa-xp-keys section">
+    <div class="pa-xp">
+      <h2>XP</h2>
+      <div class="pa-xp-track">
+        {{#each xpBoxes as |checked i|}}
+        <input type="checkbox" disabled {{#if checked}}checked{{/if}}/>
+        {{/each}}
+      </div>
+    </div>
+    <div class="pa-keys">
+      <h2>Keys</h2>
+      <div class="pa-key-track">
+        <div class="pa-key-label">Key of the Child</div>
+        {{#each system.keys.child as |val idx|}}
+          <input type="checkbox" disabled {{#if val}}checked{{/if}}/>
+        {{/each}}
+      </div>
+      <div class="pa-key-track">
+        <div class="pa-key-label">Key of Desolation</div>
+        {{#each system.keys.desolation as |val idx|}}
+          <input type="checkbox" disabled {{#if val}}checked{{/if}}/>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="pa-corner section">
+    <h2>Corner of the House</h2>
+    <table class="pa-corner-table">
+      <thead>
+        <tr><th>Name</th><th>Marked</th><th></th></tr>
+      </thead>
+      <tbody>
+        {{#each cornerItems as |item|}}
+        <tr>
+          <td>{{item.name}}</td>
+          <td><input type="checkbox" class="corner-mark-toggle" data-item-id="{{item.id}}" {{#if item.system.marked}}checked{{/if}}/></td>
+          <td><a class="corner-delete" data-item-id="{{item.id}}">Delete</a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <button type="button" class="corner-add">Add Item</button>
+  </section>
+
+  <section class="pa-moves section">
+    <h2>Moves</h2>
+    <div class="pa-move-buttons">
+      {{#each moveList as |move|}}
+        <button type="button" class="pa-roll-move" data-move-key="{{move.key}}">{{move.label}}</button>
+      {{/each}}
+      <!-- Answer a Question is a special move handled via its own dialog -->
+      <button type="button" class="pa-answer-question">Answer a Question</button>
+    </div>
+  </section>
+</form>
