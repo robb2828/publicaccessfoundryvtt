@@ -28,10 +28,22 @@ Hooks.once('init', async function() {
   // overriding the documentClass globally is acceptable.
   CONFIG.Actor.documentClass = LatchkeyActor;
 
-  // Register our actor sheet for both types so the sheet opens regardless of
-  // whether the actor was created as "latchkey" or "character" (default in UI).
-  Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet(PAConfig.ID, LatchkeySheet, { types: ['latchkey', 'character'], makeDefault: true });
+  // #region agent log
+  try {
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:pre-register',message:'Before sheet registration',data:{configId:PAConfig.ID,hasLatchkeySheet:!!LatchkeySheet},timestamp:Date.now(),hypothesisId:'A'})}).catch(()=>{});
+    // Register our actor sheet for both types so the sheet opens regardless of
+    // whether the actor was created as "latchkey" or "character" (default in UI).
+    Actors.unregisterSheet('core', ActorSheet);
+    Actors.registerSheet(PAConfig.ID, LatchkeySheet, { types: ['latchkey', 'character'], makeDefault: true });
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:post-register',message:'After sheet registration',data:{},timestamp:Date.now(),hypothesisId:'A'})}).catch(()=>{});
+  } catch (e) {
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:register-error',message:'Sheet registration threw',data:{error:String(e),stack:e?.stack},timestamp:Date.now(),hypothesisId:'A'})}).catch(()=>{});
+    throw e;
+  }
+  const sheetClasses = typeof CONFIG?.Actor?.sheetClasses !== 'undefined' ? Object.keys(CONFIG.Actor.sheetClasses) : [];
+  const typesForPublicaccess = typeof CONFIG?.Actor?.sheetClasses?.[PAConfig.ID] !== 'undefined' ? Object.keys(CONFIG.Actor.sheetClasses[PAConfig.ID]) : [];
+  fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:registry-state',message:'Sheet registry after register',data:{sheetClasses,typesForPublicaccess},timestamp:Date.now(),hypothesisId:'C'})}).catch(()=>{});
+  // #endregion
 
   // Provide utility functions
   game.pa.utils.promptAbility = promptAbility;
@@ -50,6 +62,15 @@ Hooks.once('init', async function() {
     return app;
   };
 });
+
+// #region agent log
+Hooks.on('renderApplication', (app, _element, _data) => {
+  if (!(app instanceof ActorSheet)) return;
+  const actor = app.actor ?? app.object;
+  if (!actor) return;
+  fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'publicaccess.js:renderApplication',message:'Actor sheet rendered',data:{actorType:actor.type,actorId:actor.id,sheetClass:app.constructor?.name},timestamp:Date.now(),hypothesisId:'B'})}).catch(()=>{});
+});
+// #endregion
 
 /**
  * Register configurable settings for this system.  Currently only one

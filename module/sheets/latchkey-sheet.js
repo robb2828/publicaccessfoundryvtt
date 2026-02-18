@@ -9,6 +9,14 @@ import { MoveRoll } from '../rolls/move-roll.js';
  * utilities defined in the system entry point.
  */
 export class LatchkeySheet extends ActorSheet {
+  constructor(...args) {
+    super(...args);
+    // #region agent log
+    const actor = this.actor ?? this.object;
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'latchkey-sheet.js:constructor',message:'LatchkeySheet constructed',data:{actorId:actor?.id,actorType:actor?.type,actorName:actor?.name},timestamp:Date.now(),hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
+  }
+
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -22,6 +30,9 @@ export class LatchkeySheet extends ActorSheet {
 
   /** @override */
   async getData(options) {
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'latchkey-sheet.js:getData',message:'getData called',data:{actorType:this.actor?.type},timestamp:Date.now(),hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
     const data = await super.getData(options);
     data.config = PAConfig;
     data.pa = PAConfig;
@@ -42,6 +53,9 @@ export class LatchkeySheet extends ActorSheet {
     data.moveList = Object.entries(PAConfig.MOVES)
       .filter(([k, v]) => k !== 'answer')
       .map(([k, v]) => ({ key: k, label: v.label }));
+    // #region agent log
+    fetch('http://127.0.0.1:7244/ingest/500dc1ef-7276-42a2-91d0-660fde5646b9',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'20a726'},body:JSON.stringify({sessionId:'20a726',location:'latchkey-sheet.js:getData-return',message:'getData returning',data:{hasSystem:!!data.system},timestamp:Date.now(),hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
     return data;
   }
 
