@@ -42,7 +42,8 @@ export class LatchkeySheet extends ActorSheet {
       template: 'systems/publicaccess/module/templates/actor/latchkey-sheet.hbs',
       width: 800,
       height: 900,
-      tabs: []
+      tabs: [],
+      popOut: false
     });
   }
 
